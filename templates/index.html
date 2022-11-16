@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height:100%">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body style="height: 100%; margin: 0">
+    <div class="sideList" style="margin-left: 10px;">
+        <p>
+            <a href="/area">地区工资影响图</a>
+            <a href="/work-bar">大数据工作柱状图</a>
+            <a href="/request-Edu">学历要求图</a>
+            <a href="/work-Time">工作时长图</a>
+            <a href="/work-Type">工作类型图</a>
+        </p>
+    </div>
+    <div id="container" style="height: 90%; margin: 25px;"></div>
+        {% block script%}
+        {% endblock %}
+    </div>
+</body>
+</html>

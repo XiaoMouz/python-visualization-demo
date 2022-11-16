@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+{% block title %} 大数据岗位要求中，对学历的要求占比 {% endblock %}
+{% block script %}
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+<script type="text/javascript">
+  var dom = document.getElementById('container');
+  var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+  });
+  var app = {};
+  var option;
+  option = {
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'cross',
+              label: {
+                  backgroundColor: '#6a7985'
+              }
+          }
+      },
+      title: {
+          text: "大数据岗位要求中，对学历的要求占比",
+          subtext: "数据来源: 51job",
+          left: 'center'
+      },
+      tooltip: {
+          trigger: 'item'
+      },
+      legend: {
+          orient: 'vertical',
+          left: 'left'
+      },
+      series: [{
+          name: '数据',
+          type: 'pie',
+          radius: '50%',
+          data: [
+              // jinja 便利赋值, pie 图数据要求不太一样因此采用这种方式直接输出，并且在 python 中的数据处理也略微不一样
+              {% for k,v in data.items() %} {
+                  value: {{v}},
+                  name: {{k|tojson}}
+               },
+              {% endfor %}
+          ],
+          emphasis: {
+              itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+          }
+      }]
+  };
+
+  if (option && typeof option === 'object') {
+      myChart.setOption(option);
+  }
+
+  window.addEventListener('resize', myChart.resize);
+</script>
+{% endblock %}

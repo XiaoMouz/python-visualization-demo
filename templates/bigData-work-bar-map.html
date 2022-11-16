@@ -1,0 +1,48 @@
+{% extends "index.html" %} <!-- jinja 母版调用 -->
+<!-- 对母版中的缺少部分进行填充 -->
+{% block title %} 上海市各区域大数据工作数量图 {% endblock %}
+{% block script %}
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+<script type="text/javascript">
+  var dom = document.getElementById('container');
+  var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+  });
+  var app = {};
+  var option;
+  option = {
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'cross',
+              label: {
+                  backgroundColor: '#6a7985'
+              }
+          }
+      },
+      title: {
+          text: "上海市各区域大数据工作数量图",
+          subtext: "数据来源: 51job",
+      },
+      xAxis: {
+          type: 'category',
+          name: '工作地区',
+          data: {{workPlaceData | tojson}} // 因为有中文 Unicode 所以需要使用 tojson 来转义避免代码出错
+      },
+      yAxis: {
+          type: 'value'
+      },
+      series: [{
+          data: {{workNumbersData}}, // 由于没有中文因此直接输出即可
+          type: 'bar',
+          name: '工作数量'
+      }]
+  };
+
+  if (option && typeof option === 'object') {
+      myChart.setOption(option);
+  }
+  window.addEventListener('resize', myChart.resize);
+ </script>
+{% endblock %}

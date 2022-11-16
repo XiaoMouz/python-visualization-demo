@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% block title %} 薪酬随工作年限的波动图{% endblock %}
+{% block script %}
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+<script type="text/javascript">
+  var dom = document.getElementById("container");
+  var myChart = echarts.init(dom, null, {
+      renderer: "canvas",
+      useDirtyRect: false,
+  });
+  var app = {};
+
+  var option;
+
+  option = {
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'cross',
+              label: {
+                  backgroundColor: '#6a7985'
+              }
+          }
+      },
+      title: {
+          text: "薪酬随工作年限的波动图",
+          subtext: "数据来源: 51job",
+      },
+      xAxis: {
+          type: "category",
+          name: '年',
+          data: {{workAge}},
+      },
+      yAxis: {
+          type: "value",
+          name: '平均 元 / 月',
+      },
+      series: [{
+          data: {{salaryData}},
+          type: "line",
+          emphasis: {
+              label: {
+                  show: true
+              },
+          },
+      }, ],
+  };
+
+  if (option && typeof option === "object") {
+      myChart.setOption(option);
+  }
+
+  window.addEventListener("resize", myChart.resize);
+</script>
+{% endblock %}
