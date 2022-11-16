@@ -1,6 +1,7 @@
 # Question Project
 
 一个 `flask` 与 `echart JS` 搭配题目的解决方案
+
 本 repo 用于未来可能需要的复习与检索，如有帮助给个 `::star star` 即可
 
 ### 题目:数据可视化
