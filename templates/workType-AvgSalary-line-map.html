@@ -29,7 +29,11 @@
       xAxis: {
           type: 'category',
           name: '工作类型',
-          data: {{workType|tojson}} // 由于涉及到中文 Unicode 符号因此需要进行 tojson
+          data: {{workType|tojson}}, // 由于涉及到中文 Unicode 符号因此需要进行 tojson
+          axisLabel:{
+              interval: 0,
+              rotate: 70
+          },
       },
       yAxis: {
           type: 'value',

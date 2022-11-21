@@ -28,7 +28,11 @@
       xAxis: {
           type: 'category',
           name: '工作地区',
-          data: {{workPlaceData | tojson}} // 因为有中文 Unicode 所以需要使用 tojson 来转义避免代码出错
+          data: {{workPlaceData | tojson}}, // 因为有中文 Unicode 所以需要使用 tojson 来转义避免代码出错,
+          axisLabel:{
+              interval: 0,
+              rotate: 70
+          },
       },
       yAxis: {
           type: 'value'
